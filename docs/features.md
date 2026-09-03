@@ -2,15 +2,19 @@
 
 Surfgroupe is an e-commerce and marketplace platform designed for the Haitian market.
 
-The platform combines commerce, marketplace functionality, localized delivery, seller infrastructure, customer accounts, payments, and operational tools.
+The platform combines commerce, marketplace functionality, localized delivery, seller infrastructure, customer accounts, payments, search, and operational tooling.
 
-## 🛒 Commerce
+This document describes the current capabilities and the major capabilities planned for the platform's future architecture.
 
-### Product Catalog
+---
 
-Customers can browse products through a structured catalog.
+# 🛒 Commerce
 
-The platform supports:
+## Product Catalog
+
+Surfgroupe provides a structured product catalog for online commerce.
+
+Current capabilities include:
 
 * Product categories
 * Product listings
@@ -20,20 +24,24 @@ The platform supports:
 * Related products
 * Product discovery
 
-### Shopping Cart
+The future catalog architecture will be separated into an independent Catalog Service.
 
-The cart system supports the core shopping workflow:
+## Shopping Cart
 
-* Add products
-* Update quantities
-* Remove products
+The cart system supports:
+
+* Adding products
+* Updating quantities
+* Removing products
 * Cart persistence
 * Cart totals
 * Delivery-aware cart information
 
-### Checkout
+A future Cart Service will allow cart operations to scale independently from other commerce services.
 
-The checkout process brings together:
+## Checkout
+
+The checkout workflow brings together:
 
 * Customer information
 * Delivery location
@@ -42,59 +50,85 @@ The checkout process brings together:
 * Order summary
 * Payment workflow
 
-## 👤 Customer Accounts
+The long-term architecture will coordinate checkout across independent services.
 
-Surfgroupe includes account functionality for customers.
+---
 
-Features include:
+# 👤 Identity & Accounts
 
-* Registration and authentication
+Surfgroupe includes customer and seller account functionality.
+
+Current capabilities include:
+
+* Registration
+* Authentication
 * Login management
 * User profiles
 * Address management
 * Preferred delivery location
-* Order-related account functionality
+* Account management
+* Validation
 
-## 🏪 Marketplace
+The future platform will introduce a dedicated Identity Service responsible for authentication, authorization, and identity management.
 
-The platform supports a multi-seller commerce model.
+---
 
-Seller functionality includes:
+# 🏪 Marketplace
+
+Surfgroupe supports a multi-seller commerce model.
+
+Marketplace capabilities include:
 
 * Seller accounts
 * Seller management
 * Seller products
-* Seller-oriented workflows
-* Vendor-related API functionality
+* Vendor workflows
+* Seller-oriented operations
 
-The marketplace model allows Surfgroupe to combine products managed directly by the platform with products provided by independent sellers.
+The platform can combine products managed directly by Surfgroupe with products provided by independent sellers.
 
-## 📦 Delivery & Logistics
+The future architecture will isolate marketplace capabilities into dedicated services.
 
-Delivery is designed around the customer's actual destination.
+---
 
-### Location Selection
+# 📍 Localized Commerce
 
-Customers can select a delivery location that can be used across the shopping experience.
+Location is a core part of the Surfgroupe experience.
 
-The platform supports location information such as:
+Customers can select a delivery location that can influence the information presented throughout the shopping journey.
+
+Location-aware capabilities include:
 
 * Commune
 * Department
 * Postal code
 * Geographic coordinates
+* Preferred customer location
+* Delivery availability
 
-### Delivery Pricing
+This provides a foundation for localized commerce and logistics.
 
-Delivery pricing can be associated with:
+---
 
-* Delivery locations
+# 📦 Delivery & Logistics
+
+Delivery is one of the platform's central domains.
+
+## Delivery Locations
+
+The platform supports structured delivery locations and destination information.
+
+## Delivery Pricing
+
+Delivery prices can be associated with:
+
+* Locations
 * Delivery methods
 * Delivery modes
 
-### Delivery Estimates
+## Delivery Estimates
 
-The platform contains delivery estimate infrastructure for representing:
+The platform includes infrastructure for representing:
 
 * Stock status
 * Available quantity
@@ -105,41 +139,95 @@ The platform contains delivery estimate infrastructure for representing:
 * Restock information
 * Delivery costs
 
-### Relay Points
+## Relay Points
 
-Surfgroupe includes relay-point infrastructure for customers who prefer pickup locations instead of home delivery.
+Surfgroupe includes relay-point infrastructure for customers who prefer pickup locations rather than home delivery.
 
-The relay system is part of the broader **SurfRelais** logistics direction.
+The broader logistics vision is represented by the **SurfRelais** concept.
 
-## 💳 Payments
+## Future Logistics Platform
 
-The platform contains payment-related workflows designed to support the realities of the Haitian market.
+The future Logistics Service can provide:
 
-The architecture is designed to accommodate multiple payment methods and payment providers.
+* Shipment creation
+* Delivery tracking
+* Route management
+* Relay-point management
+* Delivery optimization
+* Logistics analytics
+* Real-time delivery events
 
-The checkout and order architecture keeps payment processing as a distinct application area.
+---
 
-## 🔎 Search & Discovery
+# 💳 Payments
 
-Surfgroupe includes search functionality and an evolving search infrastructure.
+Surfgroupe includes payment-related workflows adapted to the realities of the Haitian market.
 
-The project is designed to improve product discovery as the catalog grows.
+The platform architecture is designed to support multiple payment methods and providers.
 
-Search-related API functionality is also present within the platform.
+The future Payment Service will isolate:
 
-## 📍 Location-Aware Experience
+* Payment processing
+* Provider integrations
+* Transaction state
+* Payment events
+* Reconciliation
 
-Delivery location is not treated as a simple checkout field.
+This separation will make it easier to add or change payment providers without coupling payment logic to the core commerce services.
 
-The selected location can influence information displayed throughout the customer experience, including delivery-related information and relay-point availability.
+---
 
-This creates a foundation for localized commerce.
+# 🔎 Search & Discovery
 
-## 🧑‍💼 Administrative Operations
+Surfgroupe includes search functionality and evolving search infrastructure.
 
-The platform contains administrative tooling for managing operational data.
+Search capabilities are intended to support:
 
-Administrative functionality includes areas such as:
+* Product discovery
+* Search queries
+* Filtering
+* Product indexing
+* Ranking
+* Search suggestions
+
+The future Search Service will operate independently from the core commerce services.
+
+Potential future improvements include:
+
+* Semantic search
+* Intelligent ranking
+* Personalized discovery
+* AI-assisted search
+* Multilingual search
+
+---
+
+# 🔔 Notifications
+
+Notifications are expected to become an independent platform service.
+
+Potential channels include:
+
+* Email
+* SMS
+* Push notifications
+
+Potential events include:
+
+* Account creation
+* Order confirmation
+* Payment confirmation
+* Shipment updates
+* Delivery updates
+* Seller notifications
+
+---
+
+# 🧑‍💼 Administrative Operations
+
+Surfgroupe contains administrative tooling for managing platform operations.
+
+Operational areas include:
 
 * Products
 * Sellers
@@ -150,9 +238,13 @@ Administrative functionality includes areas such as:
 * Transit routes
 * Delivery estimates
 
-## 🔌 APIs
+Future administrative interfaces will increasingly consume the platform's APIs instead of accessing domain logic directly.
 
-The platform exposes internal API endpoints for functionality such as:
+---
+
+# 🔌 API Platform
+
+The current platform includes API endpoints for functionality such as:
 
 * Location search
 * Location updates
@@ -160,35 +252,149 @@ The platform exposes internal API endpoints for functionality such as:
 * Search
 * Vendors
 
-This API layer provides a foundation for future web, mobile, and service integrations.
+The long-term architecture will evolve toward an API-first platform.
 
-## 📊 Future Data Capabilities
+```text
+Web
+Mobile
+Partners
+Internal Tools
+    │
+    ▼
+API Gateway / BFF
+    │
+    ▼
+Platform Services
+```
 
-The platform is being designed with future data-driven capabilities in mind.
+---
 
-Potential areas include:
+# 📊 Data & Analytics
+
+Data will become a first-class platform capability.
+
+Future analytics capabilities include:
 
 * Sales analytics
 * Product performance
-* Demand analysis
-* Inventory intelligence
-* Delivery performance
 * Seller analytics
-* Customer behavior analysis
+* Customer behavior
+* Search analytics
+* Delivery performance
+* Inventory analysis
+* Demand analysis
 
-## 🤖 Future AI Capabilities
+Potential technologies include:
 
-AI is part of the long-term product direction.
+* SQL
+* Python
+* R
+* Data pipelines
+* Data warehouses
+* BI tools
 
-Potential applications include:
+---
 
-* Intelligent product search
-* Product recommendations
+# 🤖 AI
+
+AI is part of Surfgroupe's long-term product strategy.
+
+Potential AI-powered capabilities include:
+
+### Intelligent Discovery
+
+* Semantic product search
+* Personalized recommendations
+* Product ranking
+* Similar-product discovery
+
+### Commerce Intelligence
+
 * Demand forecasting
+* Inventory prediction
+* Sales forecasting
+* Pricing intelligence
+
+### Customer Experience
+
+* AI shopping assistant
+* Product assistance
+* Customer support automation
+* Personalized shopping experiences
+
+### Seller Tools
+
+* Product description generation
 * Catalog enrichment
-* Customer assistance
-* Seller assistance
-* Logistics optimization
+* Seller analytics
+* Demand insights
 
-These capabilities are part of the product roadmap and should not be interpreted as already fully implemented production features.
+### Logistics Intelligence
 
+* Delivery prediction
+* Route optimization
+* Demand-aware inventory planning
+* Logistics anomaly detection
+
+AI capabilities will be introduced progressively and evaluated according to their real business value.
+
+---
+
+# 📱 Web & Mobile
+
+The future application ecosystem is expected to include:
+
+* Modern web applications
+* Mobile applications
+* Shared APIs
+* Shared TypeScript models
+* Reusable UI components
+
+The target frontend direction includes:
+
+* TypeScript
+* React
+* Next.js
+* React Native
+
+---
+
+# ⚙️ Platform Engineering
+
+As the platform grows, engineering capabilities will evolve around:
+
+* Automated testing
+* CI/CD
+* Containerization
+* Observability
+* Monitoring
+* Logging
+* Security
+* Background processing
+* Event-driven workflows
+
+The objective is to make the platform easier to develop, deploy, operate, and scale.
+
+---
+
+# Feature Philosophy
+
+Surfgroupe is being built around a simple principle:
+
+> Build useful capabilities first, then introduce architectural complexity when scale and product requirements justify it.
+
+The platform's evolution combines:
+
+```text
+Commerce
+   +
+Marketplace
+   +
+Logistics
+   +
+Modern Software Engineering
+   +
+Data
+   +
+AI
+```
