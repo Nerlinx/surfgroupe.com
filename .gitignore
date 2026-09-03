@@ -1,1 +1,12 @@
-
+.env
+config.php
+core/config.php
+*.sql
+*.log
+uploads/
+secure_uploads/
+.htpasswd
+vendor/
+node_modules/
+cache/
+logs/
