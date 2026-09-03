@@ -2,231 +2,584 @@
 
 ## Overview
 
-Surfgroupe currently follows a **modular monolith architecture** built around a PHP and MySQL application.
+Surfgroupe is an e-commerce and marketplace platform designed for the Haitian market.
 
-The platform combines e-commerce, marketplace, customer accounts, seller management, payments, delivery, logistics, search, and administrative operations within a single application.
+The platform is currently built around a PHP and MySQL application, with multiple modular components covering commerce, marketplace operations, customer accounts, payments, delivery, logistics, search, and administration.
 
-The architecture is progressively evolving toward more modular services and APIs while maintaining the existing commerce infrastructure.
+The long-term technical direction is to evolve Surfgroupe into a **modern, scalable, service-oriented platform** based on TypeScript, Node.js, modern frontend applications, microservices, event-driven architecture, data infrastructure, and AI.
 
-## High-Level Architecture
+The migration is designed to be incremental. Existing commerce capabilities can continue operating while individual domains are progressively extracted into independent services.
+
+---
+
+# Current Architecture
+
+Surfgroupe currently follows a **modular monolith architecture**.
 
 ```text
-                           SURFGROUPE
-                               │
-              ┌────────────────┴────────────────┐
-              │                                 │
+                         SURFGROUPE
+                              │
+             ┌────────────────┴────────────────┐
+             │                                 │
         Presentation                       Application
-              │                                 │
+             │                                 │
      PHP / HTML / CSS / JS                    PHP 8.2
      Bootstrap / jQuery                       │
-              │                                 │
-              └────────────────┬────────────────┘
-                               │
-       ┌───────────────────────┼───────────────────────┐
-       │                       │                       │
-   Commerce                Identity               Marketplace
-       │                       │                       │
-   Catalog                 Accounts                Sellers
-   Products                Authentication          Reviews
-   Cart                    Addresses
+             │                                 │
+             └────────────────┬────────────────┘
+                              │
+       ┌──────────────────────┼──────────────────────┐
+       │                      │                      │
+   Commerce               Identity              Marketplace
+       │                      │                      │
+   Catalog                Accounts              Sellers
+   Products               Authentication        Reviews
+   Cart                   Addresses
    Checkout
    Orders
    Payments
        │
-       ├───────────────────────┐
-       │                       │
-   Delivery                  Search
-       │                       │
-   DeliveryContext       Search infrastructure
+       ├───────────────────┐
+       │                   │
+   Delivery             Search
+       │                   │
+   DeliveryContext    Search infrastructure
    Shipping
    Relay Points
    Delivery Estimates
        │
-       └────────────────┬──────────────────────────────┘
-                        │
-                      MySQL
+       └──────────────┬──────────────────────────────┘
+                      │
+                    MySQL
 ```
 
-## Main Application Areas
+This architecture provides a practical foundation for developing the initial commerce platform while allowing individual domains to become more independent over time.
 
-### Commerce
+---
 
-The commerce layer handles the core shopping experience:
+# Current Technology Stack
 
-* Product catalog
-* Product details
-* Shopping cart
-* Checkout
-* Orders
-* Product reviews
+## Backend
 
-### Identity & Accounts
-
-The platform includes account and authentication components for customers and sellers.
-
-These components cover:
-
-* Authentication
-* User accounts
-* Seller accounts
-* Address management
-* Account management
-* Validation
-
-### Marketplace
-
-The marketplace layer provides functionality for managing sellers and their products.
-
-The platform is designed to support multiple sellers while maintaining a unified customer shopping experience.
-
-### Delivery & Logistics
-
-Delivery is one of the platform's core domain areas.
-
-Surfgroupe includes a location-aware delivery context that can determine the customer's delivery location and use it throughout the shopping experience.
-
-The delivery infrastructure includes:
-
-* Delivery locations
-* Cities and postal codes
-* Delivery methods
-* Delivery prices
-* Delivery estimates
-* Shipping routes
-* Relay points
-* Location-aware checkout
-
-The delivery context can persist a customer's selected location through session and cookie-based state, and can also associate a preferred location with a user account.
-
-### APIs
-
-The application includes API endpoints used by different parts of the platform.
-
-Examples include:
-
-* Location search
-* Location updates
-* Product-related API endpoints
-* Search-related endpoints
-* Vendor-related endpoints
-
-The API layer is part of the ongoing transition toward a more service-oriented architecture.
-
-### Search
-
-The project contains search infrastructure intended to support more scalable product discovery.
-
-The search architecture is still evolving, so search components are treated as an independent area rather than being presented as a fully separated production microservice.
-
-## Data Layer
-
-MySQL is currently the primary database system.
-
-The application contains domain-specific data structures for areas such as:
-
-* Products
-* Users
-* Sellers
-* Orders
-* Delivery locations
-* Delivery prices
-* Delivery methods
-* Relay points
-* Transit routes
-* Delivery estimates
-
-Database access is handled through PHP database components, including reusable connection and statement-handling layers.
-
-## Application Structure
-
-The codebase is organized around several application domains and reusable components.
-
-Examples include:
-
-```text
-core/
-src/
-api/
-includes/
-checkout/
-orders/
-payment/
-shipping/
-livraison/
-surfrelais/
-sellers/
-admin/
-```
-
-The project also contains older and transitional components. These are progressively being consolidated as the platform evolves.
-
-## Current Architecture
-
-```text
-PHP + MySQL
-     │
-     ├── Modular application components
-     ├── APIs
-     ├── Delivery infrastructure
-     ├── Marketplace functionality
-     └── Administrative tooling
-```
-
-This architecture allows the platform to continue developing without requiring an immediate migration to a distributed system.
-
-## Evolution Strategy
-
-The intended architectural direction is:
-
-```text
-PHP / MySQL Monolith
-        ↓
-Modular Application
-        ↓
-Services & APIs
-        ↓
-Service-Oriented Architecture
-        ↓
-Node.js / React / Mobile
-        ↓
-Data + AI
-```
-
-The goal is not to introduce microservices simply for the sake of complexity.
-
-Instead, individual domains can become more independent when scale, maintainability, reliability, or product requirements justify the transition.
-
-## Infrastructure
-
-The development and server environment includes:
-
-* Linux
-* PHP-FPM
 * PHP 8.2
 * MySQL
 * Composer
-* Node.js / npm
+* PHP-FPM
+
+## Frontend
+
+* HTML
+* CSS
+* JavaScript
+* jQuery
+* Bootstrap
+
+## Application Components
+
+The current codebase contains dedicated areas for:
+
+* Commerce
+* Authentication
+* Customer accounts
+* Sellers
+* Orders
+* Checkout
+* Payments
+* Shipping
+* Delivery
+* Relay points
+* APIs
+* Administration
+
+## Supporting Infrastructure
+
+The development environment also includes:
+
+* Node.js
+* npm
 * Docker-based components
+* Search infrastructure
 
-## Design Principles
+Some modern technologies are currently used only in specific components or are part of the platform's transition strategy. They should not be interpreted as the current architecture of the entire application.
 
-The architecture is guided by several principles:
+---
 
-1. **Modularity**
-   Keep business domains separated where practical.
+# Target Architecture
 
-2. **Incremental evolution**
-   Modernize the platform without rewriting the entire system at once.
+The long-term architecture is designed around **independent business domains and scalable services**.
 
-3. **API readiness**
-   Move reusable functionality toward clearly defined interfaces.
+```text
+                         SURFGROUPE PLATFORM
+                                  │
+                    ┌─────────────┴─────────────┐
+                    │                           │
+              Web Applications             Mobile Apps
+                    │                           │
+             React / Next.js             React Native
+             TypeScript                  TypeScript
+                    │                           │
+                    └─────────────┬─────────────┘
+                                  │
+                                  ▼
+                         API Gateway / BFF
+                                  │
+        ┌─────────────────────────┼─────────────────────────┐
+        │                         │                         │
+        ▼                         ▼                         ▼
+   Identity Services       Commerce Services       Marketplace Services
+        │                         │                         │
+   Authentication          ┌──────┼──────┐           Seller Service
+   Users                    │      │      │           Vendor Operations
+   Profiles              Catalog  Cart  Orders
+   Addresses
+        │
+        └─────────────────────────────────────────────────────────┐
+                                                                  │
+        ┌─────────────────────────┬───────────────────────────────┤
+        │                         │                               │
+        ▼                         ▼                               ▼
+ Logistics Services       Payment Services              Notification Services
+        │                         │                               │
+ Delivery                     Payment Providers            Email / SMS
+ Shipping                     Payment Processing            Push
+ Relay Points
+ Tracking
+        │
+        └─────────────────────────┬───────────────────────────────┘
+                                  │
+                                  ▼
+                         Event / Message Bus
+                                  │
+              ┌───────────────────┼───────────────────┐
+              │                   │                   │
+              ▼                   ▼                   ▼
+        Search Service       Data Platform       Analytics Services
+              │                   │                   │
+         Search Engine       Data Pipelines       Dashboards
+         Product Indexing    Data Warehouse       BI
+                                  │
+                                  ▼
+                            AI Platform
+                                  │
+                 ┌────────────────┼────────────────┐
+                 │                │                │
+                 ▼                ▼                ▼
+           Recommendations   Forecasting     AI Assistant
+           Personalization   Demand          Customer Support
+           Discovery         Inventory       Seller Assistance
+```
 
-4. **Local-first commerce**
-   Delivery, payment, and customer workflows must reflect the realities of the Haitian market.
+---
 
-5. **Scalability through separation**
-   Extract services when there is a clear technical or business reason to do so.
+# Microservices Domains
 
-6. **Data-driven development**
-   Build the foundation required for future analytics and AI capabilities.
+The target architecture separates services according to business responsibility.
 
+## Identity Service
+
+Responsible for:
+
+* Authentication
+* User identity
+* Customer accounts
+* Seller identities
+* Authorization
+* Sessions and security
+
+## Catalog Service
+
+Responsible for:
+
+* Products
+* Categories
+* Product attributes
+* Product media
+* Availability
+* Product metadata
+
+## Cart Service
+
+Responsible for:
+
+* Shopping carts
+* Cart items
+* Quantities
+* Cart persistence
+* Cart calculations
+
+## Order Service
+
+Responsible for:
+
+* Orders
+* Order lifecycle
+* Order status
+* Order items
+* Order history
+
+## Marketplace Service
+
+Responsible for:
+
+* Sellers
+* Seller profiles
+* Seller products
+* Seller operations
+* Marketplace rules
+
+## Payment Service
+
+Responsible for:
+
+* Payment workflows
+* Payment provider integrations
+* Payment status
+* Transaction records
+* Payment events
+
+Payment providers remain isolated from the rest of the platform through service boundaries.
+
+## Logistics Service
+
+Responsible for:
+
+* Delivery locations
+* Delivery methods
+* Delivery pricing
+* Delivery estimates
+* Shipping routes
+* Relay points
+* Shipment tracking
+
+This service is particularly important for Surfgroupe because delivery infrastructure must reflect the geographic and operational realities of the Haitian market.
+
+## Search Service
+
+Responsible for:
+
+* Product indexing
+* Product discovery
+* Search queries
+* Filtering
+* Ranking
+* Search suggestions
+
+The search layer can evolve independently from the core commerce database.
+
+## Notification Service
+
+Responsible for:
+
+* Email notifications
+* SMS notifications
+* Push notifications
+* Order notifications
+* Delivery notifications
+* Seller notifications
+
+## Analytics Service
+
+Responsible for collecting and processing platform events for operational and business analytics.
+
+Potential data includes:
+
+* Sales
+* Orders
+* Products
+* Sellers
+* Customer behavior
+* Delivery performance
+* Search behavior
+
+---
+
+# Event-Driven Architecture
+
+As the platform grows, services should communicate through events where asynchronous processing provides clear benefits.
+
+```text
+Order Service
+      │
+      │ OrderCreated
+      ▼
+ Event / Message Bus
+      │
+      ├──────────────► Payment Service
+      │
+      ├──────────────► Notification Service
+      │
+      ├──────────────► Logistics Service
+      │
+      └──────────────► Analytics Pipeline
+```
+
+Example events may include:
+
+```text
+UserCreated
+ProductCreated
+ProductUpdated
+OrderCreated
+OrderPaid
+OrderCancelled
+ShipmentCreated
+ShipmentUpdated
+DeliveryCompleted
+SellerRegistered
+```
+
+Event-driven communication can reduce coupling between services and provide a foundation for real-time processing, analytics, automation, and AI.
+
+---
+
+# Data Architecture
+
+The target platform is expected to use a **polyglot data architecture** where each data technology is selected according to its purpose.
+
+Potential components include:
+
+```text
+Operational Databases
+        │
+        ├── PostgreSQL / MySQL
+        │
+        ▼
+Event / Streaming Layer
+        │
+        ▼
+Data Pipelines
+        │
+        ├── Python
+        ├── SQL
+        └── Data Processing
+        │
+        ▼
+Data Warehouse / Lakehouse
+        │
+        ├── Business Intelligence
+        ├── Analytics
+        └── Machine Learning
+```
+
+The exact database and infrastructure choices will depend on scale, operational requirements, and the evolution of the platform.
+
+---
+
+# AI Architecture
+
+AI will be treated as a platform capability rather than embedded directly into every business service.
+
+```text
+                    AI PLATFORM
+                         │
+        ┌────────────────┼────────────────┐
+        │                │                │
+        ▼                ▼                ▼
+ Recommendation     Forecasting      AI Assistant
+ Engine             Engine           Services
+        │                │                │
+        └────────────────┼────────────────┘
+                         │
+                         ▼
+                    Data Platform
+```
+
+Potential AI capabilities include:
+
+* Product recommendations
+* Intelligent search
+* Personalized discovery
+* Demand forecasting
+* Inventory prediction
+* Customer assistance
+* Seller assistance
+* Catalog enrichment
+* Logistics optimization
+
+Python will be used where appropriate for machine learning, data processing, experimentation, and AI services.
+
+---
+
+# Frontend Architecture
+
+The long-term frontend stack is designed around TypeScript.
+
+```text
+                    Frontend Platform
+                           │
+             ┌─────────────┼─────────────┐
+             │             │             │
+             ▼             ▼             ▼
+        Next.js Web   React Applications  Mobile
+             │                         React Native
+             └─────────────┬───────────────┘
+                           │
+                       TypeScript
+                           │
+                           ▼
+                     API Platform
+```
+
+The objective is to share reliable types, API contracts, validation rules, and reusable components across web and mobile applications where practical.
+
+---
+
+# Backend Technology Direction
+
+The backend evolution is expected to move progressively toward:
+
+* Node.js
+* TypeScript
+* NestJS or comparable service frameworks
+* REST APIs
+* Event-driven communication
+* Background workers
+* Distributed services
+
+PHP will continue to play an important role during the migration period.
+
+The migration does not require rewriting the platform in one step. Existing PHP modules can remain operational while new services are introduced around clearly defined domains.
+
+---
+
+# Infrastructure & DevOps
+
+The target infrastructure is designed for scalable deployment and operational visibility.
+
+Potential components include:
+
+```text
+Source Control
+      │
+      ▼
+CI/CD
+      │
+      ▼
+Containerized Services
+      │
+      ▼
+Container Orchestration
+      │
+      ▼
+Cloud Infrastructure
+      │
+      ├── Databases
+      ├── Caches
+      ├── Message Brokers
+      ├── Search
+      └── Object Storage
+```
+
+The long-term platform may adopt:
+
+* Docker
+* Kubernetes
+* CI/CD pipelines
+* Cloud infrastructure
+* Infrastructure as Code
+* Centralized logging
+* Metrics
+* Distributed tracing
+* Automated testing
+* Security scanning
+
+These technologies represent the target infrastructure direction and are not all currently deployed across Surfgroupe.
+
+---
+
+# Scalability Strategy
+
+Surfgroupe will prioritize scalability at the architectural boundaries that matter most.
+
+Key principles include:
+
+### Horizontal Scaling
+
+Services should be independently scalable when traffic requires it.
+
+### Service Isolation
+
+A failure in one domain should have limited impact on unrelated domains.
+
+### Asynchronous Processing
+
+Long-running or non-critical operations should move to background workers and event-driven workflows when appropriate.
+
+### Caching
+
+Frequently accessed data can be cached to reduce database load and improve response times.
+
+### Independent Deployment
+
+Services should eventually be deployable independently when the operational maturity of the platform supports it.
+
+### Observability
+
+The platform should provide visibility into:
+
+* Requests
+* Errors
+* Latency
+* Infrastructure health
+* Business events
+* Service dependencies
+
+---
+
+# Migration Strategy
+
+The transition from the current architecture to the target architecture will be incremental.
+
+```text
+Current PHP / MySQL Application
+              │
+              ▼
+      Modularize Domains
+              │
+              ▼
+        Introduce APIs
+              │
+              ▼
+      Extract First Services
+              │
+              ▼
+     Introduce Event Bus
+              │
+              ▼
+     Independent Services
+              │
+              ▼
+     Data & AI Platform
+```
+
+The first services should be extracted according to real business and technical needs rather than architectural fashion.
+
+Potential early candidates include:
+
+* Search
+* Notifications
+* Authentication
+* Logistics
+* Payments
+* Catalog
+
+---
+
+# Architectural Principles
+
+Surfgroupe follows these long-term principles:
+
+1. **Modular by domain**
+2. **API-first**
+3. **Type-safe where possible**
+4. **Cloud-ready**
+5. **Event-driven where useful**
+6. **Independently scalable services**
+7. **Observable systems**
+8. **Security by design**
+9. **Data-driven decision making**
+10. **AI as a product capability**
+11. **Incremental migration**
+12. **Avoid premature complexity**
+
+The objective is to build an architecture that can scale with the product, the market, and the engineering team.
