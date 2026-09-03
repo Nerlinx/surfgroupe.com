@@ -1,227 +1,318 @@
-# surfgroupe.com
-**E-commerce & Marketplace Platform**
+# Surfgroupe
 
-Surfgroupe is a commerce platform designed for the Haitian market, combining e-commerce, marketplace capabilities, localized delivery, seller infrastructure, payments, and operational tools in a single platform.
+### E-commerce & Marketplace Platform
 
-The project is being developed with a long-term vision toward scalable services, data-driven operations, and AI-powered features.
+Surfgroupe is a commerce platform designed to make online buying and selling more accessible in Haiti.
 
-## Overview
+The platform combines **e-commerce, marketplace capabilities, localized delivery, payment integrations, and logistics infrastructure** with a long-term vision toward a scalable, data-driven and AI-enabled platform.
 
-Surfgroupe aims to simplify online commerce in Haiti by connecting customers, sellers, products, payments, and localized delivery infrastructure.
+> **Build for today's market. Architect for tomorrow's scale.**
 
-The platform combines:
+---
 
-* 🛒 E-commerce and product catalog
-* 🏪 Marketplace and seller management
-* 📍 Location-aware delivery
-* 📦 Delivery and relay-point infrastructure
-* 💳 Local payment workflows
-* 🔎 Search and product discovery
-* 👤 Customer accounts and authentication
-* 📊 Operational and administrative tools
+## 🚀 Overview
 
-The initial focus is on building a strong local commerce infrastructure, starting in the Nord-Est region of Haiti and designed to expand progressively.
+Surfgroupe addresses practical challenges of digital commerce in Haiti, including:
 
-## 🧩 Core Capabilities
+* Local product discovery
+* Online purchasing and selling
+* Cash-based and local payment workflows
+* Location-aware delivery
+* Pickup and relay-point logistics
+* Seller and customer management
+* Order and delivery tracking
+* Marketplace operations
 
-### Commerce
+The platform is being developed progressively, starting from a **PHP/MySQL modular architecture** and evolving toward a modern platform built around **TypeScript, Node.js, React, mobile applications, APIs, data engineering and AI**.
+
+---
+
+## ✨ Core Capabilities
+
+### 🛍️ Commerce
 
 * Product catalog
+* Product discovery and search
 * Product details
 * Shopping cart
 * Checkout
 * Orders
 * Customer accounts
-* Product reviews
+* Seller workflows
 
-### Marketplace
+### 🏪 Marketplace
 
 * Seller management
 * Seller products
-* Seller-oriented workflows
-* Marketplace-oriented catalog structure
+* Marketplace-oriented commerce workflows
+* Product and seller discovery
+* Commission-oriented business model
 
-### Delivery
+### 📍 Localized Commerce
 
-Surfgroupe uses a location-aware delivery model to adapt the customer experience according to their destination.
-
-The delivery system includes:
+Surfgroupe is designed around the realities of local commerce in Haiti.
 
 * Delivery locations
 * Cities and postal codes
+* Location-aware availability
 * Delivery pricing
-* Delivery methods
 * Delivery estimates
-* Relay points
-* Shipping routes
+* Delivery methods
+* Pickup / relay points
 * Location-aware checkout
 
-### Payments
+### 🚚 Logistics
 
-The platform is designed around payment methods adapted to the Haitian market, including cash-based and local digital payment workflows.
+The platform includes foundations for a localized logistics system, including:
 
-### Search
+* Delivery management
+* Shipping routes
+* Delivery estimates
+* Relay-point infrastructure
+* Delivery pricing
+* Order tracking
 
-The project includes an evolving search infrastructure designed to improve product discovery and support more scalable catalog search.
+The long-term goal is to evolve this into a dedicated logistics platform capable of supporting a broader commerce ecosystem.
+
+### 💳 Payments
+
+The platform is designed to support payment methods adapted to the local market, including cash-based and local digital payment workflows.
+
+### 📊 Data & Analytics
+
+Data is becoming a core part of the platform's evolution.
+
+Future capabilities include:
+
+* Business intelligence
+* Product analytics
+* Seller analytics
+* Customer behavior analysis
+* Demand forecasting
+* Operational analytics
+* Data pipelines
+* Machine learning
+
+### 🤖 AI
+
+AI is part of the long-term product strategy rather than a claim that every capability is already deployed.
+
+Potential applications include:
+
+* Product recommendations
+* Intelligent search
+* Demand forecasting
+* Seller insights
+* Customer assistance
+* Automated categorization
+* Commerce intelligence
+
+---
 
 ## 🏗️ Architecture
 
-Surfgroupe currently follows a **modular monolith architecture**, with the codebase progressively evolving toward more independent services and APIs.
+### Current Architecture
+
+The current platform is primarily a **PHP/MySQL modular application**, with progressively separated components for commerce, accounts, delivery, APIs and operational tooling.
 
 ```text
-                           SURFGROUPE
-                              │
-             ┌────────────────┴────────────────┐
-             │                                 │
-        Presentation                       Application
-             │                                 │
-    PHP / HTML / CSS / JS                     │
-    Bootstrap / jQuery                       PHP 8.2
-             │                                 │
-             └────────────────┬────────────────┘
-                              │
-       ┌──────────────────────┼──────────────────────┐
-       │                      │                      │
-   Commerce               Identity              Marketplace
-       │                      │                      │
-   Catalog                Accounts              Sellers
-   Products               Authentication        Reviews
-   Cart                   Addresses
-   Checkout
-   Orders
-   Payments
-       │
-       ├───────────────────┐
-       │                   │
-   Delivery              Search
-       │                   │
-   DeliveryContext       Search infrastructure
-   Shipping
-   SurfRelais
-   Relay Points
-       │
-       └──────────────┬──────────────────────────────┘
-                      │
-                    MySQL
+                    SURFGROUPE
+                         │
+              ┌──────────┴──────────┐
+              │                     │
+           Customers             Sellers
+              │                     │
+              └──────────┬──────────┘
+                         │
+                    Web Platform
+                         │
+              ┌──────────┴──────────┐
+              │                     │
+           Commerce             Marketplace
+              │                     │
+        ┌─────┼─────┐         ┌─────┴─────┐
+        │     │     │         │           │
+     Catalog Cart Orders    Sellers     Products
+        │
+        ▼
+     Delivery
+        │
+   ┌────┼─────┐
+   │    │     │
+Locations Prices Relay Points
 ```
 
-### Architecture Evolution
+### Target Architecture
 
-The architecture is intentionally evolving:
+The long-term architecture moves toward a service-oriented and eventually microservices-based platform.
 
 ```text
-PHP / MySQL Monolith
-        ↓
-Modular Application
-        ↓
-Services & APIs
-        ↓
-Service-Oriented Architecture
-        ↓
-Node.js / React / Mobile
-        ↓
-Data + AI
+                    SURFGROUPE PLATFORM
+                            │
+             ┌──────────────┴──────────────┐
+             │                             │
+        Web / Mobile                  External APIs
+             │                             │
+     React / Next.js                 Partners
+     React Native
+             │
+             ▼
+       API Gateway / BFF
+             │
+     ┌───────┼────────┬──────────┐
+     │       │        │          │
+     ▼       ▼        ▼          ▼
+ Identity  Commerce Marketplace Logistics
+ Service   Services   Services   Services
+             │                     │
+       ┌─────┼─────┐          ┌────┼────┐
+       │     │     │          │    │    │
+    Catalog Cart Orders     Shipping Relay Tracking
+             │
+             ▼
+       Event / Message Bus
+             │
+      ┌──────┼────────┬──────────┐
+      ▼      ▼        ▼          ▼
+   Search   Data  Notifications Payments
+   Service Platform   Service    Services
+              │
+              ▼
+         AI Platform
+              │
+      ┌───────┼────────┐
+      ▼       ▼        ▼
+ Recommendations Forecasting AI Assistant
 ```
 
-The objective is to evolve the platform without sacrificing the stability of the existing commerce infrastructure.
+The architecture will evolve progressively. Microservices, event-driven infrastructure, cloud orchestration and other advanced components will be introduced when they provide clear operational or scalability benefits.
 
-## 🛠️ Technology Stack
+See [`docs/architecture.md`](docs/architecture.md) for more details.
 
-### Backend
+---
+
+## 🧰 Technology Direction
+
+### Current
 
 * PHP 8.2
 * MySQL
 * Composer
-
-### Frontend
-
-* HTML
-* CSS
+* PHP-FPM
 * JavaScript
 * jQuery
 * Bootstrap
-
-### Services & Infrastructure
-
+* AJAX
 * REST-style APIs
-* Search infrastructure
-* Node.js / npm ecosystem
 * Docker-based components
 
-### Libraries
+### Evolving Toward
 
-* PHPMailer
-* Intervention Image
+* TypeScript
+* Node.js
+* NestJS
+* React
+* Next.js
+* React Native
+* REST APIs
+* Event-driven architecture
+* Microservices
+* Python
+* R
+* Data pipelines
+* Machine learning / AI
+* Docker
+* CI/CD
+* Cloud infrastructure
+* Observability
 
-## 📦 Project Direction
+The technology roadmap is intentionally progressive rather than a wholesale rewrite.
 
-Surfgroupe is being developed as more than a traditional online store.
-
-The long-term direction includes:
-
-* Scalable commerce services
-* Modern frontend applications
-* Mobile applications
-* Data analytics
-* Recommendation systems
-* AI-powered commerce features
-* Improved logistics intelligence
-* Automation and operational tooling
+---
 
 ## 🗺️ Roadmap
 
-### Phase 1 · Commerce Foundation
+Surfgroupe is being developed through successive architectural stages:
 
-* [x] Product catalog
-* [x] Shopping cart
-* [x] Customer accounts
-* [x] Checkout
-* [x] Orders
-* [x] Seller infrastructure
-* [x] Location-aware delivery
-* [x] Relay-point infrastructure
+```text
+PHP / MySQL Application
+          │
+          ▼
+   Modular Application
+          │
+          ▼
+      APIs & Services
+          │
+          ▼
+Service-Oriented Architecture
+          │
+          ▼
+TypeScript / Node.js / React
+          │
+          ▼
+ Event-Driven Platform
+          │
+          ▼
+    Data Platform
+          │
+          ▼
+      AI Platform
+```
 
-### Phase 2 · Platform Evolution
+Detailed roadmap:
 
-* [ ] Modularize core services
-* [ ] Expand APIs
-* [ ] Improve search infrastructure
-* [ ] Strengthen delivery and logistics services
-* [ ] Improve monitoring and observability
+* [`Architecture`](docs/architecture.md)
+* [`Features`](docs/features.md)
+* [`Roadmap`](docs/roadmap.md)
 
-### Phase 3 · Modern Application Stack
-
-* [ ] Node.js services
-* [ ] React-based interfaces
-* [ ] Mobile application
-* [ ] More independent backend services
-
-### Phase 4 · Data & AI
-
-* [ ] Business intelligence
-* [ ] Advanced analytics
-* [ ] Product recommendations
-* [ ] Intelligent search
-* [ ] Demand and inventory analysis
-* [ ] AI-powered customer experiences
-
-## 🌍 Vision
-
-Surfgroupe is being built with a simple long-term objective:
-
-> **Build better digital commerce infrastructure for Haiti, then scale the technology beyond the initial market.**
-
-The project combines software engineering, commerce, logistics, data, and artificial intelligence into a single product ecosystem.
+---
 
 ## 🔐 Repository Scope
 
-This repository contains the public-facing technical and product documentation for Surfgroupe.
+This repository is a **public engineering and product showcase**, not a mirror of the production server.
 
-Production credentials, customer information, private business logic, payment secrets, server configuration, logs, database dumps, and other sensitive operational assets are intentionally excluded.
+It intentionally excludes:
 
-## 📌 Project Status
+* Credentials and secrets
+* Environment configuration
+* Database dumps
+* Customer and seller data
+* Payment credentials
+* Private operational data
+* Server logs
+* Sensitive administration code
+* Internal infrastructure configuration
+* Proprietary business logic
 
-**Status:** Active development
+Selected source code and technical examples may be added progressively after being reviewed and sanitized for public release.
 
-**Focus:** E-commerce · Marketplace · Logistics · Software Engineering · Data · AI
+---
 
+## 📈 Project Status
+
+**Status: Active development**
+
+Surfgroupe is an evolving product and engineering project.
+
+The current priority is to strengthen the commerce foundation, improve the delivery and marketplace infrastructure, establish cleaner APIs and progressively introduce the technologies required for larger-scale operations.
+
+---
+
+## 🎯 Vision
+
+The long-term vision is to build more than an online store.
+
+Surfgroupe aims to become a **technology platform for digital commerce in Haiti**, connecting:
+
+**Customers → Sellers → Commerce → Payments → Logistics → Data → AI**
+
+The goal is to build infrastructure that can progressively support more sellers, more products, more locations and increasingly intelligent commerce experiences.
+
+---
+
+## 👨‍💻 Project
+
+**Surfgroupe**
+E-commerce & Marketplace Platform
+
+Built as an independent technology and entrepreneurship project with a focus on **software engineering, scalable systems, data and AI**.
