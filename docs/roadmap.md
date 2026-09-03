@@ -1,28 +1,37 @@
 # Surfgroupe Roadmap
 
-Surfgroupe is being developed incrementally, starting with a local commerce foundation and progressively moving toward a broader technology platform combining commerce, logistics, data, and AI.
+Surfgroupe is evolving from a local e-commerce and marketplace application into a scalable technology platform combining commerce, marketplace infrastructure, logistics, data, and artificial intelligence.
 
-## Phase 1 · Commerce Foundation
+The roadmap is intentionally incremental.
+
+The goal is not to replace the existing platform overnight, but to progressively introduce modern architecture where it provides measurable technical or business value.
+
+---
+
+# Phase 1 · Commerce Foundation
 
 **Status: In progress / operational foundation**
 
-Core commerce capabilities:
+Build and stabilize the core commerce platform.
 
 * [x] Product catalog
 * [x] Product details
 * [x] Shopping cart
 * [x] Customer accounts
 * [x] Authentication
+* [x] Address management
 * [x] Checkout
 * [x] Orders
 * [x] Product reviews
 * [x] Seller infrastructure
 
-## Phase 2 · Localized Delivery
+---
+
+# Phase 2 · Localized Commerce & Logistics
 
 **Status: In progress**
 
-Build a delivery infrastructure adapted to the Haitian market.
+Build delivery infrastructure adapted to the Haitian market.
 
 * [x] Delivery locations
 * [x] City and postal-code support
@@ -32,134 +41,382 @@ Build a delivery infrastructure adapted to the Haitian market.
 * [x] Location-aware customer experience
 * [x] Relay-point infrastructure
 * [x] Shipping routes
-* [ ] Expand relay-point network
-* [ ] Improve delivery tracking
-* [ ] Improve logistics analytics
+* [ ] Expand the relay-point network
+* [ ] Improve shipment tracking
+* [ ] Improve logistics operations
+* [ ] Introduce logistics analytics
 
-## Phase 3 · Platform Engineering
+---
+
+# Phase 3 · Platform Stabilization
 
 **Status: In progress**
 
-Strengthen the technical foundation as the platform grows.
+Strengthen the existing platform before large-scale architectural extraction.
 
 * [ ] Consolidate legacy components
 * [ ] Improve module boundaries
-* [ ] Expand API coverage
+* [ ] Standardize application conventions
+* [ ] Improve API design
 * [ ] Improve authentication architecture
+* [ ] Improve validation
 * [ ] Improve error handling
-* [ ] Improve observability
 * [ ] Improve automated testing
-* [ ] Strengthen deployment workflows
-* [ ] Improve search infrastructure
+* [ ] Improve observability
+* [ ] Strengthen security practices
+* [ ] Improve deployment workflows
 
-## Phase 4 · Service-Oriented Architecture
+---
+
+# Phase 4 · API-First Platform
 
 **Status: Planned**
 
-Gradually extract high-value domains from the monolithic application when justified by scale and complexity.
+Move toward a stronger API-first architecture.
 
-Potential service boundaries include:
+* [ ] Define domain APIs
+* [ ] Standardize API contracts
+* [ ] Introduce API versioning
+* [ ] Introduce centralized authentication
+* [ ] Introduce API Gateway / BFF
+* [ ] Establish shared TypeScript contracts
+* [ ] Prepare web and mobile clients
+* [ ] Decouple frontend applications from legacy presentation logic
+
+Target direction:
 
 ```text
-Commerce
+Web
+Mobile
+Admin
+Partners
    │
-   ├── Catalog
-   ├── Orders
-   └── Payments
-
-Marketplace
+   ▼
+API Gateway / BFF
    │
-   └── Sellers
-
-Logistics
-   │
-   ├── Delivery
-   ├── Shipping
-   └── Relay Points
-
-Platform
-   │
-   ├── Authentication
-   └── Notifications
-
-Search
-   │
-   └── Product Discovery
+   ▼
+Domain Services
 ```
 
-The objective is selective separation rather than premature microservices.
+---
 
-## Phase 5 · Modern Web & Mobile Stack
+# Phase 5 · Modern TypeScript Stack
 
 **Status: Planned**
 
-Introduce modern application clients and services where they provide clear value.
+Introduce the modern application stack progressively.
+
+## Backend
 
 * [ ] Node.js services
-* [ ] React-based web interfaces
-* [ ] Mobile application
-* [ ] Shared API layer
-* [ ] Improved real-time capabilities
-* [ ] Scalable background processing
+* [ ] TypeScript
+* [ ] NestJS or comparable service framework
+* [ ] REST APIs
+* [ ] Background workers
+* [ ] Shared service libraries
 
-## Phase 6 · Data Platform
+## Frontend
+
+* [ ] React
+* [ ] Next.js
+* [ ] TypeScript
+* [ ] Modern component architecture
+* [ ] Shared UI system
+
+## Mobile
+
+* [ ] React Native
+* [ ] Shared API contracts
+* [ ] Mobile commerce experience
+
+---
+
+# Phase 6 · Microservices Architecture
 
 **Status: Planned**
 
-Turn operational data into useful business intelligence.
+Gradually extract business domains into independently deployable services.
 
-* [ ] Analytics infrastructure
+Potential services:
+
+```text
+Identity Service
+Catalog Service
+Cart Service
+Order Service
+Marketplace Service
+Payment Service
+Logistics Service
+Search Service
+Notification Service
+Analytics Services
+```
+
+Priorities will be based on:
+
+* Business value
+* Traffic
+* Team ownership
+* Reliability requirements
+* Deployment frequency
+* Domain boundaries
+
+The objective is **selective microservices adoption**, not microservices for their own sake.
+
+---
+
+# Phase 7 · Event-Driven Platform
+
+**Status: Planned**
+
+Introduce asynchronous communication for workflows that benefit from event-driven processing.
+
+Potential events:
+
+```text
+UserCreated
+ProductCreated
+ProductUpdated
+OrderCreated
+OrderPaid
+OrderCancelled
+ShipmentCreated
+ShipmentUpdated
+DeliveryCompleted
+SellerRegistered
+```
+
+Potential architecture:
+
+```text
+                    Domain Service
+                          │
+                          ▼
+                  Event / Message Bus
+                          │
+             ┌────────────┼────────────┐
+             ▼            ▼            ▼
+        Notifications  Logistics    Analytics
+```
+
+This will create a foundation for scalable background processing, real-time workflows, analytics, and AI.
+
+---
+
+# Phase 8 · Search Platform
+
+**Status: Planned / evolving**
+
+Improve product discovery independently from the transactional commerce system.
+
+* [ ] Dedicated search service
+* [ ] Product indexing pipeline
+* [ ] Advanced filtering
+* [ ] Ranking
+* [ ] Search suggestions
+* [ ] Semantic search
+* [ ] Multilingual search
+* [ ] AI-assisted discovery
+
+---
+
+# Phase 9 · Data Platform
+
+**Status: Planned**
+
+Build a data platform capable of transforming operational data into actionable intelligence.
+
+```text
+Operational Services
+        │
+        ▼
+Events / Data Pipelines
+        │
+        ▼
+Data Platform
+        │
+   ┌────┼────┐
+   ▼    ▼    ▼
+  BI  Analytics ML
+```
+
+Planned capabilities:
+
+* [ ] Data collection
 * [ ] Data pipelines
-* [ ] Business dashboards
-* [ ] Sales analytics
-* [ ] Seller analytics
+* [ ] Data warehouse / lakehouse
+* [ ] Business intelligence
 * [ ] Product analytics
-* [ ] Delivery performance analytics
+* [ ] Seller analytics
+* [ ] Customer analytics
+* [ ] Delivery analytics
 * [ ] Demand analysis
 * [ ] Inventory intelligence
 
-Potential technologies may include Python, SQL, R, and modern data-processing tools depending on the use case.
+Potential technologies:
 
-## Phase 7 · AI-Powered Commerce
+* Python
+* SQL
+* R
+* Data processing frameworks
+* Cloud data infrastructure
+
+---
+
+# Phase 10 · AI Platform
 
 **Status: Planned**
 
-Introduce AI where it creates measurable value for customers, sellers, and operations.
+Build AI capabilities on top of the platform's data and service architecture.
+
+## Commerce AI
+
+* [ ] Product recommendations
+* [ ] Personalized discovery
+* [ ] Intelligent product search
+* [ ] Similar-product discovery
+
+## Forecasting
+
+* [ ] Demand forecasting
+* [ ] Inventory prediction
+* [ ] Sales forecasting
+
+## Customer AI
+
+* [ ] AI shopping assistant
+* [ ] Intelligent customer support
+* [ ] Personalized experiences
+
+## Seller AI
+
+* [ ] Catalog enrichment
+* [ ] Product description assistance
+* [ ] Seller insights
+* [ ] Demand insights
+
+## Logistics AI
+
+* [ ] Delivery prediction
+* [ ] Route optimization
+* [ ] Demand-aware logistics
+* [ ] Operational anomaly detection
+
+---
+
+# Phase 11 · Cloud & Infrastructure Scaling
+
+**Status: Planned**
+
+Prepare the platform for larger workloads and geographically distributed operations.
 
 Potential capabilities:
 
-* [ ] Intelligent product search
-* [ ] Product recommendations
-* [ ] Personalized discovery
-* [ ] Demand forecasting
-* [ ] Catalog enrichment
-* [ ] AI shopping assistant
-* [ ] Seller assistant
-* [ ] Logistics optimization
+* [ ] Containerized services
+* [ ] CI/CD pipelines
+* [ ] Infrastructure as Code
+* [ ] Cloud deployment
+* [ ] Kubernetes where justified
+* [ ] Horizontal service scaling
+* [ ] Distributed caching
+* [ ] Message brokers
+* [ ] Object storage
+* [ ] Centralized logging
+* [ ] Metrics
+* [ ] Distributed tracing
+* [ ] Automated security scanning
 
-## 🌍 Long-Term Vision
+Infrastructure choices will remain driven by actual platform requirements.
 
-The long-term objective is to evolve Surfgroupe from a commerce application into a broader technology platform combining:
+---
+
+# Target Technology Direction
 
 ```text
-Commerce
-   +
-Marketplace
-   +
-Logistics
-   +
+Frontend
+├── TypeScript
+├── React
+├── Next.js
+└── React Native
+
+Backend
+├── Node.js
+├── TypeScript
+├── NestJS
+├── REST APIs
+├── Event-driven services
+└── Microservices
+
 Data
-   +
+├── SQL
+├── Python
+├── R
+├── Data Pipelines
+└── Data Warehouse / Lakehouse
+
 AI
+├── Python
+├── Machine Learning
+├── LLM-based services
+├── Recommendation Systems
+└── Forecasting
+
+Infrastructure
+├── Docker
+├── CI/CD
+├── Cloud Infrastructure
+├── Kubernetes
+├── Observability
+└── Infrastructure as Code
 ```
 
-The initial market focus is Haiti.
+These represent the **target technology direction**. They should not be interpreted as technologies already deployed across the entire Surfgroupe platform.
 
-The technical architecture, however, is being designed with the possibility of supporting broader markets and more complex commerce operations over time.
+---
 
-## Guiding Principle
+# Long-Term Architecture
 
-Surfgroupe will prioritize **useful complexity over architectural complexity**.
+The long-term vision is:
 
-New technologies and services should be introduced when they solve a real product, scaling, data, or operational problem.
+```text
+                    SURFGROUPE
+                         │
+          ┌──────────────┼──────────────┐
+          │              │              │
+         Web           Mobile         APIs
+          │              │              │
+          └──────────────┼──────────────┘
+                         │
+                  API Gateway / BFF
+                         │
+          ┌──────────────┼──────────────┐
+          │              │              │
+      Commerce      Marketplace     Logistics
+          │              │              │
+          └──────────────┼──────────────┘
+                         │
+                  Event / Message Bus
+                         │
+          ┌──────────────┼──────────────┐
+          │              │              │
+       Search          Data       Notifications
+                         │
+                         ▼
+                    AI Platform
+```
 
+---
+
+# Vision
+
+The long-term objective is to transform Surfgroupe into a scalable technology platform combining:
+
+**Commerce + Marketplace + Logistics + Data + AI**
+
+The initial focus is Haiti.
+
+The architecture is being designed so that the platform can progressively support larger transaction volumes, more sellers, more locations, additional applications, and potentially new markets.
+
+The guiding principle remains:
+
+> **Scale the architecture with the product, not ahead of it.**
